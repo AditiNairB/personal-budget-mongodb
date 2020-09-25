@@ -96,8 +96,8 @@ details.summary-box {
     width: 100%;
     max-width: 340px;
     text-align: justify;
-    margin: 160px;
-    font-size: 4.2em;
+    margin: 20px;
+    font-size: 15px;
 }
 
 @media screen and (min-width: 768px) {
