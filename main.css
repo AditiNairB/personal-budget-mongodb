@@ -97,7 +97,7 @@ details.summary-box {
     max-width: 340px;
     text-align: justify;
     margin: 20px;
-    font-size: 15px;
+    font-size: 10px;
 }
 
 @media screen and (min-width: 768px) {
