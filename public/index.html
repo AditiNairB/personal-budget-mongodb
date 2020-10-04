@@ -62,13 +62,6 @@
                 </p>
             </div>
     
-            <div class="text-box">
-                <h2>Free</h2>
-                <p>
-                    This app is free!!! And you are the only one holding your data!
-                </p>
-            </div>
-    
             <!-- This is an SEO Change : 3. Removed duplicate content - to prevent further google filtering in search results-->
 
             <!-- This is an SEO Change : 4. Adding important keywords to get more search results - Relevant keywords found from moz.com-->
@@ -79,6 +72,14 @@
                     Personal budget software will help you make a personal cash budget. 
                     Instead of making a weekly or monthly budget in excel you can use this app and not 
                     fret about the strategies in personal budgeting or figure out what all are included.
+                </p>
+            </div>
+
+
+            <div class="text-box">
+                <h2>Chart</h2>
+                <p>
+                    <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </div>
             
@@ -97,6 +98,47 @@
             All rights reserved &copy; Fabio Nolasco
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+
+    <script>
+        var dataSource = {
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: [
+                            '#ffcd56',
+                            '#ff6384',
+                            '#36a2eb',
+                            '#fd6b19',
+                        ]
+                    }
+                ],
+                labels: []
+            };
+
+        function createChart() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: dataSource
+            });
+        }
+
+        function getBudget() {
+            axios.get('http://localhost:3000/budget')
+            .then(function (res) {
+                for (var i = 0; i < res.data.myBudget.length; i++) {
+                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+                    dataSource.labels[i] = res.data.myBudget[i].title;
+                    createChart();
+                }
+            });
+        }
+
+        getBudget();
+    </script>
 
 </body>
 </html>
